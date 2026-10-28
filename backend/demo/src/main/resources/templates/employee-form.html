@@ -1,0 +1,203 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Employee Form</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            margin: 40px;
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-top: 16px;
+            font-weight: bold;
+        }
+
+        input,
+        select {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px;
+            margin-top: 6px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background: white;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #0d6efd;
+        }
+
+        .error {
+            color: #dc3545;
+            font-size: 13px;
+            display: block;
+            margin-top: 4px;
+        }
+
+        .save {
+            background: #198754;
+            color: white;
+            padding: 11px 18px;
+            border: none;
+            border-radius: 5px;
+            margin-top: 22px;
+            cursor: pointer;
+        }
+
+        .save:hover {
+            background: #157347;
+        }
+
+        .back {
+            margin-left: 12px;
+            color: #0d6efd;
+            text-decoration: none;
+        }
+
+        .back:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="form-container">
+
+    <a class="add"
+    th:href="@{/departments/new}">
+        + Add Department
+    </a>
+
+    <h1 th:text="${employee.id == null
+        ? 'Add Employee'
+        : 'Edit Employee'}">
+        Add Employee
+    </h1>
+
+
+
+    <form th:action="@{/employees/save}"
+          th:object="${employee}"
+          method="post">
+
+        <!-- Employee ID -->
+        <input type="hidden" th:field="*{id}">
+
+
+        <!-- Full Name -->
+        <label for="fullName">
+            Full Name
+        </label>
+
+        <input id="fullName"
+               type="text"
+               th:field="*{fullName}"
+               placeholder="Enter full name"
+               required>
+
+        <span class="error"
+              th:if="${#fields.hasErrors('fullName')}"
+              th:errors="*{fullName}">
+        </span>
+
+
+        <!-- Email -->
+        <label for="email">
+            Email
+        </label>
+
+        <input id="email"
+               type="email"
+               th:field="*{email}"
+               placeholder="name@example.com"
+               required>
+
+        <span class="error"
+              th:if="${#fields.hasErrors('email')}"
+              th:errors="*{email}">
+        </span>
+
+
+
+        <!-- Department -->
+        <label for="departmentId">Department</label>
+
+        <select id="departmentId"
+                name="departmentId"
+                required>
+
+            <option value="">-- Select Department --</option>
+
+            <option th:each="dept : ${departments}"
+                    th:value="${dept.id}"
+                    th:text="${dept.name}"
+                    th:selected="${employee.department != null
+                                and employee.department.id == dept.id}">
+            </option>
+
+        </select>
+
+
+        <span class="error"
+              th:if="${#fields.hasErrors('department')}"
+              th:errors="*{department}">
+        </span>
+
+
+        <!-- Position -->
+        <label for="position">
+            Position
+        </label>
+
+        <input id="position"
+               type="text"
+               th:field="*{position}"
+               placeholder="Enter position"
+               required>
+
+        <span class="error"
+              th:if="${#fields.hasErrors('position')}"
+              th:errors="*{position}">
+        </span>
+
+
+        <!-- Buttons -->
+        <button class="save" type="submit">
+            Save Employee
+        </button>
+
+        <a class="back" th:href="@{/employees}">
+            Cancel
+        </a>
+
+    </form>
+
+</div>
+
+</body>
+</html>

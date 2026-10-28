@@ -1,0 +1,24 @@
+
+# Java / Spring Boot
+backend/target/
+backend/.classpath
+backend/.project
+backend/.settings/
+backend/.idea/
+backend/*.iml
+
+# Vue / Node.js
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+application-local.properties
+application-local.yml
+
+# Operating system
+.DS_Store
+Thumbs.db

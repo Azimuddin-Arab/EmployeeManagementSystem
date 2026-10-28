@@ -1,0 +1,122 @@
+
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Department Form</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            margin: 40px;
+        }
+
+        .form-container {
+            max-width: 500px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-top: 16px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px;
+            margin-top: 6px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .save {
+            background: #198754;
+            color: white;
+            padding: 11px 18px;
+            border: none;
+            border-radius: 5px;
+            margin-top: 22px;
+            cursor: pointer;
+        }
+
+        .back {
+            margin-left: 12px;
+            color: #0d6efd;
+            text-decoration: none;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="form-container">
+
+    <h1 th:text="${department.id == null
+        ? 'Add Department'
+        : 'Edit Department'}">
+        Add Department
+    </h1>
+
+
+    <form th:action="@{/departments/save}"
+          th:object="${department}"
+          method="post">
+
+        <input type="hidden"
+               th:field="*{id}">
+
+
+        <label for="name">
+            Department Name
+        </label>
+
+        <input id="name"
+               type="text"
+               th:field="*{name}"
+               placeholder="Enter department name"
+               required>
+
+
+        <button class="save"
+                type="submit">
+
+            Save Department
+
+        </button>
+
+
+        <a class="back"
+           th:href="@{/departments}">
+
+            Cancel
+
+        </a>
+
+    </form>
+
+</div>
+
+</body>
+
+</html>
